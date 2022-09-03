@@ -1,0 +1,48 @@
+---
+title: "Swiftkey Next Word Prediction"
+author: "Cylia YACEF"
+date: '2022-09-03'
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## R Markdown
+Project Goal / Problem to solve: When using mobile devices, the capability of having a text prediction can help the user type words faster with greater accuracy. Two key metrics for this capability to be successful will involve accuracy and prediction speed. 
+
+Based on a set of data provided by Swiftkey containing both twitter (lazy typers), blogs and news in four different languages. We have set out to build a fast and accurate prediction app that will predict the next word in a given sentence.
+
+Here is the Prediction App:
+
+https://415p7a-cylia-yacef.shinyapps.io/swift/
+
+## Summary of the tasks
+The project was structured as follows:
+
+- Introduction to the tasks.
+- ata exploration, summaries, wordclouds, already covered here:
+https://rpubs.com/elsa56/Milestone_Report
+- Data sampling.
+- Design a prediction model, then evaluate it.
+- Evaluate the feasability of a prediction model.
+- The application can be browsed at 
+
+https://415p7a-cylia-yacef.shinyapps.io/swift/
+
+## Process Description
+
+The method involves creating ngrams of several orders, from 1 to 6, and using these into the prediction model. 
+So from the source data, taking larger and larger sample sizes allowed tm::Corpus constructs that were then parsed into 6 ngrams, containing sequence of 1 word (for ngram1), two words for bigrams and so on until the 6th level. Each ngram contains a sequence of words and its frequency, as a count and as a relative frequency.
+
+
+## Method Description
+The method used is simple to understand: a backoff model that looks at 6-degrees ngrams for a prediction, and backs-off to 5 degree ngram if the first search is unsuccessful. The process continues back to trigrams, bigrams. If the search for bigrams is also unsuccessful, then the most frequent words in the corpus are then displayed from the unigram
+
+See it in action:
+
+
+https://415p7a-cylia-yacef.shinyapps.io/swift/
+
+Once the n grams are clean and easy to use, several other methods can be used like Backoff smoothing with discounting.
